@@ -1,0 +1,8 @@
+# Ignore Eclipse files
+.classpath
+.project
+.settings/*
+eclipse/*
+
+# Ignore built folders
+target/*
