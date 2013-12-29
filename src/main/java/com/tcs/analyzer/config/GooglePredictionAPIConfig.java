@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,6 +18,12 @@ import com.google.api.services.prediction.PredictionScopes;
 
 @Configuration
 public class GooglePredictionAPIConfig {
+	
+	@Value("${google.api.accountId}")
+	private String accountId;
+	
+	@Value("${google.api.keyPath}")
+	private String keyPath;
 	
 	@Bean
 	public Prediction predictionClient() throws Exception {
@@ -32,9 +39,9 @@ public class GooglePredictionAPIConfig {
 		
 		GoogleCredential credential = new GoogleCredential.Builder().setTransport(httpTransport)
 	              .setJsonFactory(JSON_FACTORY)
-	              .setServiceAccountId("9354185860-obninb6145u14dro26b5vcioimt9mmb6@developer.gserviceaccount.com")
+	              .setServiceAccountId(accountId)
 	              .setServiceAccountScopes(scopes)
-	              .setServiceAccountPrivateKeyFromP12File(new File(this.getClass().getResource("/key.p12").getFile()))
+	              .setServiceAccountPrivateKeyFromP12File(new File(this.getClass().getResource(keyPath).getFile()))
 	              .build();
 		
 		Prediction client = new Prediction.Builder(httpTransport, JSON_FACTORY, credential).build();

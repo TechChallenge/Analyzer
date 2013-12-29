@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +29,13 @@ public class AnalyzeController {
 	
 	@Autowired
 	FacebookRestService facebookRestService;
+	
+	@Value("${fb.page}")
+	private String fbPage;
 
 	@RequestMapping(value="getPostDetails", method = RequestMethod.GET)
 	public String getFeeds(ModelMap model) {
-		List<Post> facebookPosts = facebookRestService.getFacebookPost("awesomeAspirants");
+		List<Post> facebookPosts = facebookRestService.getFacebookPost(fbPage);
 		
 		List<String> facebookFeeds = new ArrayList<String>();
 		
