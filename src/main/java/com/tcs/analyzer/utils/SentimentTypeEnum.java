@@ -4,7 +4,8 @@ public enum SentimentTypeEnum {
 	
 	POSITIVE(1, "Postive"),
 	NEGATIVE(2, "Negative"),
-	NEUTRAL(3, "Neutral");
+	NEUTRAL(3, "Neutral"),
+	UNKNOWN(4, "Unknown");
 	
 	SentimentTypeEnum(int type, String label) {
 		this.type = type;
@@ -38,6 +39,18 @@ public enum SentimentTypeEnum {
 			return NEGATIVE;
 		} else {
 			return NEUTRAL;
+		}
+	}
+	
+	public static String getSentimentLabel(int type) {
+		if (type == POSITIVE.getType()) {
+			return POSITIVE.getLabel();
+		} else if (type == NEGATIVE.getType()) {
+			return NEGATIVE.getLabel();
+		} else if (type == NEUTRAL.getType()) {
+			return NEUTRAL.getLabel();
+		} else {
+			return UNKNOWN.getLabel();
 		}
 	}
 }

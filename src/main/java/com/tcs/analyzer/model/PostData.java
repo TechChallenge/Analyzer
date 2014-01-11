@@ -1,7 +1,10 @@
 package com.tcs.analyzer.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.tcs.analyzer.utils.SentimentTypeEnum;
 
 @Document
 public class PostData {
@@ -16,6 +19,9 @@ public class PostData {
 	private String message;
 	
 	private int sentimentIndex;
+	
+	@Transient
+	private String sentimentLabel;
 
 	public String getId() {
 		return id;
@@ -55,5 +61,9 @@ public class PostData {
 
 	public void setType(String type) {
 		this.type = type;
-	}	
+	}
+
+	public String getSentimentLabel() {
+		return SentimentTypeEnum.getSentimentLabel(this.sentimentIndex);
+	}
 }

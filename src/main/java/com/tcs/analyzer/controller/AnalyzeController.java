@@ -37,7 +37,13 @@ public class AnalyzeController {
 
 	@RequestMapping(value="getPostDetails", method = RequestMethod.GET)
 	public String getFeeds(ModelMap model) {
-		List<Post> facebookPosts = facebookRestService.getFacebookPosts(fbPage);
+		int limit = 0;
+		List<PostData> postDatas = postDataService.getPosts();
+		if (postDatas != null && postDatas.size() > 0) {
+			limit = 10;
+		}
+		
+		List<Post> facebookPosts = facebookRestService.getFacebookPosts(fbPage, limit);
 		
 		List<String> facebookFeeds = new ArrayList<String>();
 		
@@ -76,7 +82,9 @@ public class AnalyzeController {
 			}
 		}
 		
-		model.addAttribute("facebookFeeds", facebookFeeds);
+		postDatas = postDataService.getPosts();
+		
+		model.addAttribute("facebookFeeds", postDatas);
 		
 		return "facebookFeeds";
 	}

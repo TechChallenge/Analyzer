@@ -3,6 +3,7 @@ package com.tcs.analyzer.service;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +31,17 @@ public class PostDataService {
         if (getPostForExternalId(postData.getPostExternalId()) == null) {
         	postData.setId(UUID.randomUUID().toString());
             mongoTemplate.insert(postData, COLLECTION_NAME);
-        } else {
-        	System.out.println("Found");
         }
     }
 	
 	public PostData getPostForExternalId(String externalId) {
 		PostData postData = mongoTemplate.findOne(query(where("postExternalId").is(externalId)), PostData.class);
 		return postData;
+	}
+	
+	public List<PostData> getPosts() {
+		List<PostData> postDatas = mongoTemplate.findAll(PostData.class);
+		return postDatas;
 	}
 
 }

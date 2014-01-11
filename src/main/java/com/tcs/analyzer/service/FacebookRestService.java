@@ -18,7 +18,7 @@ public class FacebookRestService {
 	@Autowired
 	FacebookClient facebookClient;
 
-	public List<Post> getFacebookPosts(String pageId) {
+	public List<Post> getFacebookPosts(String pageId, int limit) {
 		/*
 		 * Get the required page to fetch post / comments
 		 */
@@ -27,8 +27,12 @@ public class FacebookRestService {
 		/*
 		 * Fetch Posts
 		 */
-		//Connection<Post> myFeed = facebookClient.fetchConnection(page.getId() + "/feed", Post.class, Parameter.with("limit", 10), Parameter.with("offset", 0));
-		Connection<Post> myFeed = facebookClient.fetchConnection(page.getId() + "/feed", Post.class, Parameter.with("offset", 0));
+		Connection<Post> myFeed = null;
+		if (limit != 0) {
+			myFeed = facebookClient.fetchConnection(page.getId() + "/feed", Post.class, Parameter.with("limit", limit), Parameter.with("offset", 0));
+		} else {
+			myFeed = facebookClient.fetchConnection(page.getId() + "/feed", Post.class, Parameter.with("offset", 0));
+		}
 
 		List<Post> posts = myFeed.getData();
 		return posts;
