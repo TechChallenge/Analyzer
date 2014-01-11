@@ -11,6 +11,8 @@ public class PostData {
 	
 	private String postExternalId;
 	
+	private String type;
+	
 	private String message;
 	
 	private int sentimentIndex;
@@ -45,5 +47,13 @@ public class PostData {
 
 	public void setPostExternalId(String postExternalId) {
 		this.postExternalId = postExternalId;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}	
 }
